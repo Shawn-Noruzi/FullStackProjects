@@ -12,6 +12,12 @@ const renderPlayers = function (playersList) {
         return <p key={player._id}>{player.name} has {player.score} point(s).</p>;
     });
 };
+
+const handleSubmit = function (e) {
+    let playerName = e.target;
+    e.preventDefault();
+};
+
 Meteor.startup(function () {
     Tracker.autorun(function () {
         let players = Players.find().fetch();
@@ -23,6 +29,11 @@ Meteor.startup(function () {
                 <p>hello {name} </p>
                 <p>This is my 2nd P</p>
                 {renderPlayers(players)}
+            
+                <form onSubmit={handleSubmit}>
+                    <input type="text" name="playerName" placeholder="Player Name"/>
+                    <button>Add Player</button>
+                </form>
             </div>
         );
         ReactDOM.render(jsx, document.getElementById('app'));
