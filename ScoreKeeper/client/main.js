@@ -7,19 +7,38 @@ import { Tracker } from 'meteor/tracker';
 
 
 
-const renderPlayers = function (playersList) {
-    return playersList.map(function (player) {
-        return <p key={player._id}>{player.name} has {player.score} point(s).</p>;
+const renderPlayers = (playersList) => {
+    returnplayersList.map((player) => {
+        return (
+            <p key={player._id}>
+                {player.name} has {player.score} point(s).
+
+                <button onClick={() => {Players.update({ _id: player._id },{$inc { score, 1}});}}>+1 </button>;
+                <button onClick={() => {Players.update({ _id: player._id },{$inc { score, -1}});}}>-1 </button>;
+                <button onClick={() => Players.remove({ id: player._id })}>X</button>
+            </p>
+        );
     });
 };
 
-const handleSubmit = function (e) {
-    let playerName = e.target;
+const handleSubmit = (e) => {
+    let playerName = e.target.playerName.value;
+
     e.preventDefault();
+
+    if (playerName) {
+        e.target.playerName.value = '';
+
+        //insert player
+        Players.insert({
+            name: playerName,
+            score: 0
+        });
+    };
 };
 
-Meteor.startup(function () {
-    Tracker.autorun(function () {
+Meteor.startup(() => {
+    Tracker.autorun(() => {
         let players = Players.find().fetch();
         let title = "Score Keep";
         let name = "shawn";
@@ -38,11 +57,5 @@ Meteor.startup(function () {
         );
         ReactDOM.render(jsx, document.getElementById('app'));
     });
-
-    Players.insert({
-        name: 'rad',
-        score: 45
-    });
-
 });
 
