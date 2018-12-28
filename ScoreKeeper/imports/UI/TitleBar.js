@@ -1,12 +1,23 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 
 export default class TitleBar extends React.Component {
     render() {
         return (
             <div>
-                <h1> My App Name </h1>
+                <h1>{this.props.title}</h1>
+                <h2>{this.props.sub}</h2>
             </div>
        );
     }
 }
+
+TitleBar.propTypes = {
+    title: PropTypes.string.isRequired,
+    sub: PropTypes.string.isRequired
+};
+
+TitleBar.defaultProps = {
+    title: 'Default Title',
+    sub: 'Default Sub Title'
+};
