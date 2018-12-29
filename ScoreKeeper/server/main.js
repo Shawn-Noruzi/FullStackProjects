@@ -15,7 +15,6 @@ Meteor.startup(() => {
         }
     }
 
-
     class Employee extends Person {
         constructor(name,age,title) {
             super(name, age);

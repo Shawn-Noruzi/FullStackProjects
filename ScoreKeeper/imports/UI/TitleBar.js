@@ -2,11 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default class TitleBar extends React.Component {
+    renderSubtitle(){
+        if (this.props.subtitle){
+            return <h2>{this.props.subtitle}</h2>;
+        }
+    }
     render() {
         return (
             <div>
                 <h1>{this.props.title}</h1>
-                <h2>{this.props.sub}</h2>
+                {this.renderSubtitle()}
             </div>
        );
     }
@@ -14,7 +19,7 @@ export default class TitleBar extends React.Component {
 
 TitleBar.propTypes = {
     title: PropTypes.string.isRequired,
-    sub: PropTypes.string.isRequired
+    sub: PropTypes.string
 };
 
 TitleBar.defaultProps = {
